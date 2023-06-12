@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveWall : MonoBehaviour
+public class MoveObject : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float wallMoveSpeed;

@@ -8,12 +8,7 @@ public class CheckTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Coin")
-        {
-            FindObjectOfType<AudioManager>().Play("Coin");
-            GameManager.instance.AddCoin();
-            Destroy(other.gameObject, 0.02f);
-        }
+        
         if(other.gameObject.tag == "Wall")
         {
             FindObjectOfType<AudioManager>().Play("GameOver");

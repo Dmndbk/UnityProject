@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public LayerMask wahtIsGround;
     public bool isGrounded;
 
-    public int maxJumpValue;
+    public static int maxJumpValue = 1;
     int maxJump;
 
     // Start is called before the first frame update
@@ -53,4 +53,6 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(0, jumpSpeed));
     }
+
+    
 }

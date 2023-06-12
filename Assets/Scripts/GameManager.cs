@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public float speedMultiplier;
+    public string playerName;
+    public ScoreboardHandler scoreboardHandler;
 
     public static bool GameIsOver;
     public GameObject gameOverUI;
@@ -23,7 +25,9 @@ public class GameManager : MonoBehaviour
 
     private int randomIndex;
     public GameObject[] backgroundToChange;
-    
+
+    public GameObject panel;
+    public int powerUpCost = 10;
 
     private void Awake()
     {
@@ -45,7 +49,7 @@ public class GameManager : MonoBehaviour
     }
     void UpdateHighDistanceText()
     {
-        highDistText.text = PlayerPrefs.GetFloat("HighDistance").ToString("F0"); ;
+        highDistText.text = PlayerPrefs.GetFloat("HighDistance").ToString("F0");
     }
     void CheckHighDistance()
     {
@@ -67,6 +71,7 @@ public class GameManager : MonoBehaviour
         currDistText.text = PlayerStats.Distance.ToString("F0");
         CheckHighDistance();
         UpdateHighDistanceText();
+        ShowPanel();
 
     }
     public void AddCoin()
@@ -79,9 +84,26 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(backgroundToChange[randomIndex]);
     }
+
+    public void ShowPanel()
+    {
+        if (coinCount >= powerUpCost)
+        {
+            panel.SetActive(true);
+            if (Input.GetKey("left shift"))
+            {
+                coinCount -= powerUpCost;
+                coinText.text = coinCount.ToString();
+            }
+        }
+        else
+            panel.SetActive(false);
+    }
     public void GameOver()
-    { 
-       GameIsOver = true;
-       gameOverUI.SetActive(true);
+    {
+        
+        GameIsOver = true;
+        gameOverUI.SetActive(true);
+        scoreboardHandler.AddHighscore(new ScoreboardElement(playerName, Mathf.RoundToInt(PlayerStats.Distance)));
     }
 }
